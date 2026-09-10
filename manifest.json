@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Diary Exporter for MyFitnessPal",
+  "version": "1.0.0",
+  "description": "Export your entire MyFitnessPal food diary (any date range, not just the last year) to a CSV file.",
+  "minimum_chrome_version": "116",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Export MyFitnessPal diary",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "downloads"
+  ]
+}

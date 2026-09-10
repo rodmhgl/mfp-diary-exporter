@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Diary Exporter for MyFitnessPal</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <img src="icons/icon32.png" alt="" width="24" height="24">
+    <h1>Diary Exporter</h1>
+  </header>
+
+  <!-- Shown when the active tab is not myfitnesspal.com -->
+  <section id="wrongSite" hidden>
+    <p>Open <a href="https://www.myfitnesspal.com/food/diary" target="_blank" rel="noopener">myfitnesspal.com</a>
+       in this tab and make sure you're logged in, then click the extension icon again.</p>
+  </section>
+
+  <section id="form" hidden>
+    <label>Username
+      <input id="username" type="text" autocomplete="off" spellcheck="false">
+    </label>
+    <div class="row">
+      <label>From <input id="from" type="date"></label>
+      <label>To <input id="to" type="date"></label>
+    </div>
+    <details>
+      <summary>Advanced</summary>
+      <div class="row">
+        <label>Days per request
+          <input id="windowDays" type="number" min="7" max="180" value="90">
+        </label>
+        <label>Pause between requests (ms)
+          <input id="pauseMs" type="number" min="0" max="5000" step="100" value="400">
+        </label>
+      </div>
+      <p class="hint">MyFitnessPal caps each request at 365 days; 90 is a safe default.</p>
+    </details>
+    <button id="start" class="primary">Export food diary to CSV</button>
+    <p id="formError" class="error" hidden></p>
+  </section>
+
+  <section id="progress" hidden>
+    <div class="bar"><div id="fill"></div></div>
+    <p id="counts"></p>
+    <p id="message" class="hint"></p>
+    <button id="cancel">Cancel</button>
+  </section>
+
+  <section id="result" hidden>
+    <p id="resultMessage"></p>
+    <button id="again" class="primary">Run another export</button>
+  </section>
+
+  <footer>
+    <p class="hint">Runs entirely in your browser using your existing MyFitnessPal login. Nothing is sent anywhere else.</p>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
