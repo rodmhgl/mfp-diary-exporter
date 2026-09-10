@@ -1,6 +1,6 @@
 # Diary Exporter for MyFitnessPal
 
-A Chrome extension that exports your **entire** MyFitnessPal food diary — any date range, not just the last 12 months that MyFitnessPal's own export allows — to a CSV file with one row per food entry.
+A Chrome extension that exports your **entire** MyFitnessPal food diary to a CSV file, covering any date range rather than just the last 12 months that MyFitnessPal's own export allows, with one row per food entry.
 
 ## How it works
 
@@ -20,7 +20,7 @@ Everything runs locally in your browser using your existing login. No data is se
 
 1. Log in at [myfitnesspal.com](https://www.myfitnesspal.com/food/diary) and stay on any `www.myfitnesspal.com` page.
 2. Click the extension icon. Your username and an estimated account-creation date are prefilled; adjust the dates if needed.
-3. Click **Export food diary to CSV**. Progress shows in the popup; you can close the popup and reopen it later — the export keeps running in the tab.
+3. Click **Export food diary to CSV**. Progress shows in the popup; you can close the popup and reopen it later. The export keeps running in the tab.
 4. When it finishes, `mfp_food_diary_<from>_to_<to>.csv` lands in your Downloads folder.
 
 Don't navigate away from or reload the MyFitnessPal tab while an export is running.
@@ -31,24 +31,11 @@ Don't navigate away from or reload the MyFitnessPal tab while an export is runni
 
 Nutrient values are for the logged serving (already multiplied by servings). `meal_name` is the meal slot as MyFitnessPal stores it (`1`–`6` on older accounts, or your custom meal names). Only days that have something logged are returned by MyFitnessPal, so a date missing from the CSV means nothing was logged that day.
 
-## Publishing to the Chrome Web Store
-
-1. Bump `version` in `manifest.json` for each release.
-2. Zip the folder contents (not the folder itself): `manifest.json`, `background.js`, `content.js`, `popup.html`, `popup.css`, `popup.js`, and `icons/`. Leave out `README.md`, `PRIVACY.md`, `LICENSE`, and `store-listing.md`.
-3. Register a developer account at the [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole) (one-time US$5 fee).
-4. Create a new item, upload the zip, and fill in the listing using `store-listing.md`. You'll need at least one 1280×800 or 640×400 screenshot of the popup.
-5. Under **Privacy practices**, the privacy-policy field only accepts a URL: host `PRIVACY.md` somewhere public (the GitHub repo itself, GitHub Pages, or a gist) and link it. Declare the single purpose ("Export the user's own MyFitnessPal food diary to CSV") and justify each permission:
-   - `activeTab` / `scripting`: to run the exporter in the MyFitnessPal tab the user has open, only when the user clicks the icon.
-   - `downloads`: to save the generated CSV.
-   - Answer "no" to remote code.
-   - In the data-usage section, disclose **Health information**, **Website content**, and **Personally identifiable information** (the username), then certify the three statements (no sale or transfer to third parties, no use unrelated to the single purpose, no creditworthiness use). The data never leaves the browser, but the store's definition of "collection" is broad and under-disclosure is a common reason for rejection; over-disclosing costs nothing.
-6. Submit for review. Reviews typically take a few days.
-
 ## Caveats
 
-- If the export fails immediately with "MyFitnessPal does not recognise the username", the Username field is wrong. It must match your profile name exactly (case does not matter). The endpoint answers a wrong username with a 404, which is why older builds appeared to hang: they retried and split every window before giving up.
-- This relies on an undocumented MyFitnessPal endpoint. If MyFitnessPal changes it, the extension will stop working until updated. Look at `content.js` → `runExport` for the request shape.
-- Automated access to your own data may still sit in a grey area under MyFitnessPal's Terms of Service. The extension makes the same requests the website itself makes, at a modest pace, but use your own judgement — especially before publishing it publicly.
+- If the export fails immediately with "MyFitnessPal does not recognise the username", the Username field is wrong. It must match your profile name exactly (case does not matter).
+- This relies on an undocumented MyFitnessPal endpoint. If MyFitnessPal changes it, the extension will stop working until updated.
+- Automated access to your own data may still sit in a grey area under MyFitnessPal's Terms of Service. The extension makes the same requests the website itself makes, at a modest pace, but use your own judgement.
 - This project is not affiliated with or endorsed by MyFitnessPal, Inc.
 
 ## License
